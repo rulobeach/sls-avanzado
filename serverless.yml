@@ -3,6 +3,9 @@ service: crud-serverless-users
 provider:
   name: aws
   runtime: nodejs14.x
+  apiGateway:
+    apiKeys:
+      - crud-serverless-users-apikey
   iam: 
     role:
       statements:
@@ -46,6 +49,7 @@ functions:
         - "getusers/handler.js"
     events:
       - http:
+          private: true
           path: users/{id}
           method: GET
           request:
@@ -127,7 +131,7 @@ layers:
     compatibleRuntimes:
       - "nodejs14.x"
     package: 
-      artifact: app/nodejs.zip
+      artifact: app/nodejs.zip  #se agrega directorio
 
 resources:
   Resources:
